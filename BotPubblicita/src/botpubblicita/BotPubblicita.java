@@ -5,7 +5,7 @@ import java.io.IOException;
 
 /**
  *
- * @author galli_Francesco
+ * @author galli_francesco
  */
 public class BotPubblicita {
 
@@ -15,11 +15,11 @@ public class BotPubblicita {
      */
     public static void main(String[] args) throws IOException {
         
-        // Inizializza la cosa per leggere i messaggi (ENTRATA)
+        // Lettura dei messaggi UTENTE
         getMessage messaggi = new getMessage();
         messaggi.run();
         
-        // Porvo a inviare un messaggio
+        // Invio di un messaggio
         sendMessage sMessage = new sendMessage();
         sMessage.run(); 
     }

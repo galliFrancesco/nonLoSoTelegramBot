@@ -9,20 +9,22 @@ import java.util.stream.Collectors;
 import org.json.*;
 
 /**
- * 
+ *
+ * @author galli_francesco
  */
 public class Test {
     String URLBase;
 
     public Test() {
         URLBase = "https://api.telegram.org/bot5166569514:AAFfr4N1FeRgUIMPzI3HIKaNNbkzWAaDRqw/"; // url del mio bot
+        // totally not my token, take IT... it's public
     }
     
+    // metodo per leggere i messaggi dell'utente
     public void getUpdates(String azione) throws MalformedURLException, IOException {
         
         String getUpdatesRequest = URLBase + azione;
-        URL request = new URL(getUpdatesRequest);
-        
+        URL request = new URL(getUpdatesRequest); // fa la richiesta web
         
         String result = new BufferedReader(new InputStreamReader(request.openStream())).lines().collect(Collectors.joining("\n"));
         System.out.println(result);
@@ -48,6 +50,7 @@ public class Test {
         }
     }
 
+    //questo è per inviare i messaggi
     public void sendMessage(String azione) throws MalformedURLException, IOException {
         
         String getUpdatesRequest = URLBase + azione;
@@ -56,23 +59,6 @@ public class Test {
         String result = new BufferedReader(new InputStreamReader(request.openStream())).lines().collect(Collectors.joining("\n"));
         String jsonString = result; //assign your JSON String here
         JSONObject obj = new JSONObject(jsonString);
-        //JSONArray arrResult = obj.getJSONArray("result"); // notice that `"posts": [...]`
-        
-        //for (int i = 0; i < arrResult.length(); i++) {
-//            //ho il totale
-//            JSONObject totale = arrResult.getJSONObject(i);
-//            //entro nel messaggio
-//            JSONObject message = totale.getJSONObject("message");
-//            long message_id = message.getLong("message_id");
-//            String text = message.getString("text");
-//            System.out.println(text);
-//            //entro nel from
-//            JSONObject from = message.getJSONObject("from");
-//            long id_chat = from.getLong("id");
-//            String first_name = from.getString("first_name");
-//            System.out.println(first_name);
-//
-        //}
     }
 
     
