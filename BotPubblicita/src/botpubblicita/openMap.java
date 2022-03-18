@@ -12,7 +12,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -27,7 +29,7 @@ public class openMap {
         // https://nominatim.openstreetmap.org/search?q=mariano+comense,+monnet&format=xml&addressdetails=1
     }
     
-    public void run(String azione) throws MalformedURLException, IOException, ParserConfigurationException{
+    public void run(String azione) throws MalformedURLException, IOException, ParserConfigurationException, SAXException{
         
         System.out.println(""); 
         System.out.println(""); 
@@ -45,6 +47,8 @@ public class openMap {
         
         
         // lettura XML? 
+        Document document; 
+        
         DocumentBuilderFactory factory; 
         DocumentBuilder builder; 
         Element root, element; // W3C.DOC
@@ -53,9 +57,9 @@ public class openMap {
         factory = DocumentBuilderFactory.newInstance(); 
         builder = factory.newDocumentBuilder(); 
         
-        document = builder.parse(filename); 
+        document = builder.parse("E:\\Galli Francesco\\BOTTelegram\\BotPubblicita\\AIUTO.xml"); 
         root = document.getDocumentElement();
-        List<Change> cambio = new ArrayList();  
+        
         
         /*
         
