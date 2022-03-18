@@ -7,8 +7,12 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.stream.Collectors;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -23,7 +27,7 @@ public class openMap {
         // https://nominatim.openstreetmap.org/search?q=mariano+comense,+monnet&format=xml&addressdetails=1
     }
     
-    public void run(String azione) throws MalformedURLException, IOException{
+    public void run(String azione) throws MalformedURLException, IOException, ParserConfigurationException{
         
         System.out.println(""); 
         System.out.println(""); 
@@ -39,33 +43,67 @@ public class openMap {
         fw.write(result); 
         fw.close();
         
-        /*
-        XMLOperations xmlo = new XMLOperations(); 
-
-        // prende il link del file XML
-        //URL url = new URL("https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml");
-        URL url = new URL("http://localhost/galli/Boh%20tecnologia/?METHOD_=GET&Tabella=film");
         
-        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-        // legge tutto il file
-        String line;  
-        String docFinale = ""; 
-        while((line = in.readLine())!= null){ // finchè legge righe 
-            //System.out.println(line);
-            docFinale += line + "\n"; // viene un file XML su tutta la riga
+        // lettura XML? 
+        DocumentBuilderFactory factory; 
+        DocumentBuilder builder; 
+        Element root, element; // W3C.DOC
+        
+        // Creazione dell'albero DOM dal coumento XMl
+        factory = DocumentBuilderFactory.newInstance(); 
+        builder = factory.newDocumentBuilder(); 
+        
+        document = builder.parse(filename); 
+        root = document.getDocumentElement();
+        List<Change> cambio = new ArrayList();  
+        
+        /*
+        
+        DocumentBuilderFactory factory; 
+        DocumentBuilder builder; 
+        Element root, element; // W3C.DOC
+        
+        // Creazione dell'albero DOM dal coumento CMl
+        factory = DocumentBuilderFactory.newInstance(); 
+        builder = factory.newDocumentBuilder(); 
+        
+        document = builder.parse(filename); 
+        root = document.getDocumentElement();
+        List<Change> cambio = new ArrayList();  
+        
+        Change dato; 
+        
+        //nodelist = root.getElementsByTagName("Cube"); 
+        //nodelist = ((Element)nodelist.item(1)).getElementsByTagName("Cube");
+        
+        nodelist = root.getElementsByTagName("Film");
+        
+        if(nodelist!=null && nodelist.getLength() > 0){
+            
+            System.out.println("Dentro"); 
+            
+            int numNode = nodelist.getLength(); // numero di elementi contati 
+            System.out.println(numNode); 
+            
+            //element = (Element) nodelist.item(1); // secondo tag
+            //String s = element.getAttribute("time");
+            
+            element = (Element) nodelist.item(0); // dovrebbe prendere solo il primo elemento di 4
+            dato = getInfo(element);
+            cambio.add(dato);
+            
+            
+            for(int i = 0; i< numNode-1; i++){
+                element = (Element) nodelist.item(i);
+                dato = getInfo(element);
+                cambio.add(dato);
+            }
         }
         
-        // Salvo la linea di prima in un file XML locale 
-        FileWriter fw = new FileWriter("AIUTO.xml"); 
-        fw.write(docFinale); 
         
-        fw.close(); 
-              
-        // Questo lo converte in Document, non so se mi serve effettivamente
-        Document doc = convertStringToXMLDocument(docFinale);
-        System.out.println(doc.getFirstChild().getNodeName());
-        
-        xmlo.parseDocument("AIUTO.xml"); 
+        return cambio; // array con tutte le cose
+         
         */
+       
     }
 }
