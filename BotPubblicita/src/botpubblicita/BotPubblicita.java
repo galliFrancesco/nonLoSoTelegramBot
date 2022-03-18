@@ -21,7 +21,12 @@ public class BotPubblicita {
         
         // Invio di un messaggio
         sendMessage sMessage = new sendMessage();
-        sMessage.run(); 
+        //sMessage.run(); 
+        
+        //search?q=mariano+comense,+monnet&format=xml&addressdetails=1
+        // OPen map 
+        openMap map = new openMap();
+        map.run("search?q=mariano+comense,+monnet&format=xml&addressdetails=1");
     }
     
 }
