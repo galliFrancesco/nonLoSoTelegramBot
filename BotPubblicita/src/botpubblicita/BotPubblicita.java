@@ -27,6 +27,5 @@ public class BotPubblicita {
         // OPen map 
         openMap map = new openMap();
         map.run("search?q=mariano+comense,+monnet&format=xml&addressdetails=1");
-    }
-    
+    } 
 }

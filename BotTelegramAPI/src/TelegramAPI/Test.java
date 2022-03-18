@@ -40,12 +40,12 @@ public class Test {
             JSONObject message = totale.getJSONObject("message");
             long message_id = message.getLong("message_id");
             String text = message.getString("text");
-            System.out.println(text);
+            //System.out.println(text);
             //entro nel from
             JSONObject from = message.getJSONObject("from");
             long id_chat = from.getLong("id");
             String first_name = from.getString("first_name");
-            System.out.println(first_name);
+            //System.out.println(first_name);
 
         }
     }
