@@ -38,76 +38,29 @@ public class openMap {
         URL request = new URL(getUpdatesRequest); // fa la richiesta web
         
         String result = new BufferedReader(new InputStreamReader(request.openStream())).lines().collect(Collectors.joining("\n")); // prende il file XML
-        System.out.println(result);
+        //System.out.println(result);
+        
         
         // lo scrive in un file, giusto per
         FileWriter fw = new FileWriter("AIUTO.xml"); 
         fw.write(result); 
-        fw.close();
-        
+        fw.close();    
         
         // lettura XML? 
         Document document; 
         
         DocumentBuilderFactory factory; 
         DocumentBuilder builder; 
-        Element root, element; // W3C.DOC
+        Element root; // W3C.DOC
         
-        // Creazione dell'albero DOM dal coumento XMl
+        // Creazione dell'albero DOM dal coumento XML
         factory = DocumentBuilderFactory.newInstance(); 
         builder = factory.newDocumentBuilder(); 
         
-        document = builder.parse("E:\\Galli Francesco\\BOTTelegram\\BotPubblicita\\AIUTO.xml"); 
+        document = builder.parse("AIUTO.xml"); 
         root = document.getDocumentElement();
         
-        
-        /*
-        
-        DocumentBuilderFactory factory; 
-        DocumentBuilder builder; 
-        Element root, element; // W3C.DOC
-        
-        // Creazione dell'albero DOM dal coumento CMl
-        factory = DocumentBuilderFactory.newInstance(); 
-        builder = factory.newDocumentBuilder(); 
-        
-        document = builder.parse(filename); 
-        root = document.getDocumentElement();
-        List<Change> cambio = new ArrayList();  
-        
-        Change dato; 
-        
-        //nodelist = root.getElementsByTagName("Cube"); 
-        //nodelist = ((Element)nodelist.item(1)).getElementsByTagName("Cube");
-        
-        nodelist = root.getElementsByTagName("Film");
-        
-        if(nodelist!=null && nodelist.getLength() > 0){
-            
-            System.out.println("Dentro"); 
-            
-            int numNode = nodelist.getLength(); // numero di elementi contati 
-            System.out.println(numNode); 
-            
-            //element = (Element) nodelist.item(1); // secondo tag
-            //String s = element.getAttribute("time");
-            
-            element = (Element) nodelist.item(0); // dovrebbe prendere solo il primo elemento di 4
-            dato = getInfo(element);
-            cambio.add(dato);
-            
-            
-            for(int i = 0; i< numNode-1; i++){
-                element = (Element) nodelist.item(i);
-                dato = getInfo(element);
-                cambio.add(dato);
-            }
-        }
-        
-        
-        return cambio; // array con tutte le cose
-         
-        */
+        System.out.println(root.getChildNodes()); 
        
     }
 }
