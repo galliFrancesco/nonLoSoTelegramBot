@@ -22,6 +22,9 @@ import org.xml.sax.SAXException;
 /**
  *
  * @author galli_francesco
+ * 
+ * @brief Passa la query a openMap, che restituisce uno xml 
+ *        Questa classe legge e "trasmuta le informazioni"
  */
 public class openMap {
     
@@ -50,10 +53,10 @@ public class openMap {
         FileWriter fw = new FileWriter("AIUTO.xml"); 
         fw.write(result); 
         fw.close();    
-        // e il file viene scritto bene
         
-        
-        // lettura XML
+        // -------------
+        // LETTURA DEL FILE XML DATO UN DOCUMENT
+        // -------------
         Document document; 
         
         DocumentBuilderFactory factory; 
@@ -65,80 +68,32 @@ public class openMap {
         document = db.parse("AIUTO.xml"); 
         
         root = document.getDocumentElement();
-        //List<String> giorgio = new ArrayList();  
         
-        nodelist = root.getElementsByTagName("place"); // bi tag name se è lungo tutto il file
+        nodelist = root.getElementsByTagName("place"); 
+        // by tag name -> <place>
+        //  <altre cose></altre cose>
+        // </place>
         
         if(nodelist!=null && nodelist.getLength() > 0){
             int numNode = nodelist.getLength();
             System.out.println("Ho degli elementi: " +numNode); 
             
+            Element e = (Element)nodelist.item(0);
+            
+            // Prende gli attributi di <place> e ne prende la latitudine e la longitudine
+            System.out.println(e.getAttribute("lat"));                   
+            System.out.println(e.getAttribute("lon"));    
+            
+            // NON SERVE
+            // Prende gli oggetti da <town> [...] </town>
             element = (Element)nodelist.item(0); 
-            //System.out.println("++" + element.getElementsByTagName("town").item(0));
-            
-            
             NodeList nl = element.getElementsByTagName("town");
-            
             String f = nl.item(0).getTextContent(); 
-            
             System.out.println(f);
             
-        }
-        
-        /*
-        if(nodelist!=null && nodelist.getLength() > 0){
-            int numNode = nodelist.getLength();
             
-            element = (Element) nodelist.item(1); // secondo tag
-            String s = element.getAttribute("time");
-            
-            for(int i = 2; i< numNode; i++){
-                element = (Element) nodelist.item(i);
-                dato = getInfo(element);
-                cambio.add(dato);
-            }
-        }
-        */
-        
-        
-        /*
-        DocumentBuilderFactory factory; 
-        DocumentBuilder builder; 
-        Element root, element; // W3C.DOC
-        
-        // Creazione dell'albero DOM dal coumento CMl
-        factory = DocumentBuilderFactory.newInstance(); 
-        builder = factory.newDocumentBuilder(); 
-        
-        document = builder.parse(filename); 
-        root = document.getDocumentElement();
-        
-        List<Change> cambio = new ArrayList();  
-        
-        Change dato; 
-        
-        nodelist = root.getElementsByTagName("Cube");
-        nodelist = ((Element)nodelist.item(1)).getElementsByTagName("Cube");
-        */
-
-        // Creazione dell'albero DOM dal coumento XML
-        /*
-        factory = DocumentBuilderFactory.newInstance(); 
-        builder = factory.newDocumentBuilder(); 
-        
-        document = builder.parse("AIUTO.xml"); 
-        */
-        
-        /* SOURCE -> STACKOVERFLOW
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        DocumentBuilder db = dbf.newDocumentBuilder();
-        Document document = db.parse(new File("input.xml"));
-        NodeList nodeList = document.getElementsByTagName("Item");
-        for(int x=0,size= nodeList.getLength(); x<size; x++) {
-            System.out.println(nodeList.item(x).getAttributes().getNamedItem("name").getNodeValue());
-        }
-        */
-        
-       
+            // TODO: Salvare le informazioni in un CSV
+            // -> magari faccio la classe CSV, che si occupa anche di controllare che l'utente non sia già registarto(id_chat,nome, lat, lon)
+        }   
     }
 }
