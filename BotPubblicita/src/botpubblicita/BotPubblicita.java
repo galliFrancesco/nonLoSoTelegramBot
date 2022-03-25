@@ -23,8 +23,5 @@ public class BotPubblicita {
         tlm.start();
 
         //search?q=mariano+comense,+monnet&format=xml&addressdetails=1
-        // OPen map 
-        openMap map = new openMap();
-        //map.run("search?q=mariano+comense,+monnet&format=xml&addressdetails=1");
     }
 }
