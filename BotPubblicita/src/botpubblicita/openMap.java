@@ -29,13 +29,23 @@ import org.xml.sax.SAXException;
 public class openMap {
     
     String URLBase;
-        
+    
+    String utente, id_utente; 
+    
+    readCSV rcsv = new readCSV(); 
+    
     public openMap(){
         URLBase = "https://nominatim.openstreetmap.org/";
         // https://nominatim.openstreetmap.org/search?q=mariano+comense,+monnet&format=xml&addressdetails=1
     }
     
-    public void run(String azione) throws MalformedURLException, IOException, ParserConfigurationException, SAXException{
+    /**
+     *
+     * @param azione -> Serve per completare il link con la query
+     * @param utente -> Nome utente
+     * @param id_utente -> L'ID che servirà poi per andare a modificare il CSV
+     */
+    public void run(String azione, String utente, Long id_chat) throws MalformedURLException, IOException, ParserConfigurationException, SAXException{
         
         System.out.println(""); 
         System.out.println(""); 
@@ -49,8 +59,8 @@ public class openMap {
         //System.out.println(result);
         
         
-        // lo scrive in un file, giusto per
-        FileWriter fw = new FileWriter("AIUTO.xml"); 
+        // lo scrive in un file XML
+        FileWriter fw = new FileWriter("temp.xml"); 
         fw.write(result); 
         fw.close();    
         

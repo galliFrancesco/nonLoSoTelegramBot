@@ -18,6 +18,7 @@ public class ThreadLetturaMessagg extends Thread {
 
     Test t = new Test();
 
+    String utente;
     Long id_chat;
 
     Long id_messaggio;  // è un numero identificativo e unico, quindi non si può sbagliare
@@ -68,43 +69,42 @@ public class ThreadLetturaMessagg extends Thread {
                         // qui c'è da richiamare la cosa che fa con OpenMap
                         t.sendMessage("sendMessage?chat_id=" + id_chat + "&text=Dove abiti?");
                         t.sendMessage("sendMessage?chat_id=" + id_chat + "&text=(ex. Longone al Segrino, Como)");
-                        
-                        try { 
-                        Thread.sleep(5000);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(ThreadLetturaMessagg.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+
+                        try {
+                            Thread.sleep(5000);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(ThreadLetturaMessagg.class.getName()).log(Level.SEVERE, null, ex);
+                        }
 
                     } catch (IOException ex) {
                         Logger.getLogger(ThreadLetturaMessagg.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
-                    
-                    
-                    // qui dovrebbe prendere poi il messaggio, quindi aspettare finchè l'id non è diverso 
+
+                    // Qui prende il messaggio, quindi aspettare finchè l'id non è diverso 
                     do {
                         try {
                             // Cambierà il messaggio
                             t.getUpdates("getUpdates");
                             testo = t.getTesto();
                             id_messaggio = t.getIdMessaggio();
+                            utente = t.getNickUtente(); 
                             
                         } catch (IOException ex) {
                             Logger.getLogger(ThreadLetturaMessagg.class.getName()).log(Level.SEVERE, null, ex);
                         }
 
-                    } while (id_messaggio == id_messaggio2); // Aspetta il messaggio dopo
-
+                    } while (id_messaggio == id_messaggio2);
+                    // Aspetta il messaggio dopo
                     // che dovrebbe generare la query
-                    // che per qualche stracazzo di motivo è vuota
-                    testo = testo.replaceAll(" ", "+"); // FUNZIA :D
+                    testo = testo.replaceAll(" ", "+"); // Imposta gli spazi come "+" per impostare la query
 
                     // passo la query alla classe della mappa
-                    try {                            
-                    // https://nominatim.openstreetmap.org/search?q=mariano+comense,+monnet&format=xml&addressdetails=1
-                        map.run("search?q=" +testo + "&format=xml&addressdetails=1");
+                    try {
+                        // EX: // https://nominatim.openstreetmap.org/search?q=mariano+comense,+monnet&format=xml&addressdetails=1
+                        map.run("search?q=" + testo + "&format=xml&addressdetails=1", utente, id_chat);
+
                     } catch (MalformedURLException | ParserConfigurationException | SAXException ex) {
-                    Logger.getLogger(ThreadLetturaMessagg.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(ThreadLetturaMessagg.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (IOException ex) {
                         Logger.getLogger(ThreadLetturaMessagg.class.getName()).log(Level.SEVERE, null, ex);
                     }

@@ -21,7 +21,11 @@ public class BotPubblicita {
         ThreadLetturaMessagg tlm = new ThreadLetturaMessagg();
 
         tlm.start();
-
+        
+        
+        //readCSV rcsv = new readCSV(); 
+        //rcsv.run();
+        
         //search?q=mariano+comense,+monnet&format=xml&addressdetails=1
     }
 }
