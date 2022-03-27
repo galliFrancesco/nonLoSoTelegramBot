@@ -28,11 +28,11 @@ import org.xml.sax.SAXException;
  */
 public class openMap {
     
-    String URLBase;
+    readCSV rcsv = new readCSV(); 
     
+    String URLBase;    
     String utente, id_utente; 
     
-    readCSV rcsv = new readCSV(); 
     
     public openMap(){
         URLBase = "https://nominatim.openstreetmap.org/";
@@ -40,7 +40,6 @@ public class openMap {
     }
     
     /**
-     *
      * @param azione -> Serve per completare il link con la query
      * @param utente -> Nome utente
      * @param id_utente -> L'ID che servirà poi per andare a modificare il CSV
@@ -91,19 +90,25 @@ public class openMap {
             Element e = (Element)nodelist.item(0);
             
             // Prende gli attributi di <place> e ne prende la latitudine e la longitudine
-            System.out.println(e.getAttribute("lat"));                   
-            System.out.println(e.getAttribute("lon"));    
+            Long lat = Long.parseLong(e.getAttribute("lat")); 
+            Long longi = Long.parseLong(e.getAttribute("lon")); 
             
-            // NON SERVE
+            //System.out.println(e.getAttribute("lat"));                   
+            //System.out.println(e.getAttribute("lon"));    
+            
+
+            // NON SERVE, MA
             // Prende gli oggetti da <town> [...] </town>
             element = (Element)nodelist.item(0); 
             NodeList nl = element.getElementsByTagName("town");
             String f = nl.item(0).getTextContent(); 
             System.out.println(f);
             
-            
             // TODO: Salvare le informazioni in un CSV
-            // -> magari faccio la classe CSV, che si occupa anche di controllare che l'utente non sia già registarto(id_chat,nome, lat, lon)
+            // -> magari faccio la classe CSV, che si occupa anche di controllare che l'utente non sia già registarto(id_chat,nome, lat, lon)            
+            rcsv = new readCSV(utente, id_utente, lat, longi); 
+            
+       
         }   
     }
 }

@@ -23,8 +23,8 @@ public class BotPubblicita {
         tlm.start();
         
         
-        //readCSV rcsv = new readCSV(); 
-        //rcsv.run();
+        readCSV rcsv = new readCSV(); 
+        rcsv.run();
         
         //search?q=mariano+comense,+monnet&format=xml&addressdetails=1
     }

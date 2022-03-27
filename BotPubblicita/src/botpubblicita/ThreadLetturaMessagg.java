@@ -14,9 +14,9 @@ import org.xml.sax.SAXException;
  */
 public class ThreadLetturaMessagg extends Thread {
 
-    openMap map = new openMap();
-
     Test t = new Test();
+    openMap map = new openMap();
+    
 
     String utente;
     Long id_chat;
