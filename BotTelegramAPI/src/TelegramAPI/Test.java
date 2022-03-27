@@ -16,7 +16,7 @@ public class Test {
 
     String URLBase;
 
-    String testo;
+    String nickutente, testo;
     Long id_chat, id_message;
 
     public Test() {
@@ -50,7 +50,7 @@ public class Test {
             //entro nel from(CHI ha mandato il messaggio)
             JSONObject from = message.getJSONObject("from");
             id_chat = from.getLong("id");
-            //String first_name = from.getString("first_name");
+            nickutente = from.getString("first_name");
             //System.out.println(first_name);
 
         }
@@ -75,5 +75,8 @@ public class Test {
     }
     public Long getIdMessaggio() {
         return id_message;
+    }
+    public String getNickUtente(){
+        return nickutente;  
     }
 }
