@@ -74,7 +74,7 @@ public class openMap {
         
         factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = factory.newDocumentBuilder();
-        document = db.parse("AIUTO.xml"); 
+        document = db.parse("temp.xml"); 
         
         root = document.getDocumentElement();
         
@@ -89,9 +89,11 @@ public class openMap {
             
             Element e = (Element)nodelist.item(0);
             
+            System.out.println(e.getAttribute("lat")); 
+            System.out.println(e.getAttribute("lon"));    
+            String lat = e.getAttribute("lat");
+            String longi = e.getAttribute("lon");
             // Prende gli attributi di <place> e ne prende la latitudine e la longitudine
-            Long lat = Long.parseLong(e.getAttribute("lat")); 
-            Long longi = Long.parseLong(e.getAttribute("lon")); 
             
             //System.out.println(e.getAttribute("lat"));                   
             //System.out.println(e.getAttribute("lon"));    
@@ -105,10 +107,10 @@ public class openMap {
             System.out.println(f);
             
             // TODO: Salvare le informazioni in un CSV
-            // -> magari faccio la classe CSV, che si occupa anche di controllare che l'utente non sia già registarto(id_chat,nome, lat, lon)            
-            rcsv = new readCSV(utente, id_utente, lat, longi); 
+            // -> magari faccio la classe CSV, che si occupa anche di controllare che l'utente non sia già registarto(id_chat,nome, lat, lon)         
+            rcsv = new readCSV(utente, id_chat, lat, longi); 
+            rcsv.run(); 
             
-       
         }   
     }
 }
