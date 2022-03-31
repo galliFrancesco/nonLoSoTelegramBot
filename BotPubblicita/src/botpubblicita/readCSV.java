@@ -84,7 +84,6 @@ public class readCSV {
                 // Ora va salvato sul CSV
                 for(int i = 0; i<contatti.size(); i++){
                     fw.append(contatti.get(i));
-                    fw.append("\n");
                     
                 }
                 fw.flush();

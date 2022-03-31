@@ -12,19 +12,12 @@ import org.xml.sax.SAXException;
 public class BotPubblicita {
 
     /**
-     * @param args the command line arguments
-     * @throws java.io.IOException
+     * @Brief Semplicemente avvia il Thread per leggere i messaggi inviati al bot 
      */
     public static void main(String[] args) throws IOException, MalformedURLException, ParserConfigurationException, SAXException {
 
         ThreadLetturaMessagg tlm = new ThreadLetturaMessagg();
 
         tlm.start();
-        
-        
-        //readCSV rcsv = new readCSV("giovanni","25", 9L, 9L); 
-        //rcsv.run();
-        
-        //search?q=mariano+comense,+monnet&format=xml&addressdetails=1
     }
 }

@@ -10,31 +10,32 @@ import org.xml.sax.SAXException;
 
 /**
  * @author galliFrancesco
- * @brief Ogni tot secondi(10) richiede gli update
+ * @brief Ogni tot secondi(10) richiede gli update(Lettura nuovi messaggi)
  */
 public class ThreadLetturaMessagg extends Thread {
 
     Test t = new Test();
-    openMap map = new openMap();
-    
+    openMap map = new openMap(); 
 
     String utente;
     Long id_chat;
 
-    Long id_messaggio;  // è un numero identificativo e unico, quindi non si può sbagliare
-    Long id_messaggio2 = 0L;
+    Long id_messaggio;  // è un numero identificativo e unico del messaggio, quindi non si può sbagliare
+    Long id_messaggio2 = 0L; // Variabile Temporanea
 
     String testo = "";
 
     @Override
     public void run() {
 
+        // Un avviso perchè non si sa mai 
         System.out.println("Thread Partito");
 
         do {
-            // Richiede gli update
+            // Richiede gli update grazie alla libreria Test.java
             try {
                 t.getUpdates("getUpdates");
+                // Una volta letto prende le sue informazioni 
                 testo = t.getTesto();
                 id_chat = t.getIdChat();
                 id_messaggio = t.getIdMessaggio();
@@ -42,34 +43,29 @@ public class ThreadLetturaMessagg extends Thread {
             } catch (IOException ex) {
                 Logger.getLogger(ThreadLetturaMessagg.class.getName()).log(Level.SEVERE, null, ex);
             }
-            // Ok legge i messaggi, 
             System.out.println(id_chat + ": " + testo);
 
-            //if(!testoPrec.equals(testo)){}  // Se non è uguale a quello di adesso 
-            // richiama il metodo per dire che c'è un messaggio diverso       
-            if (id_messaggio != id_messaggio2) { //Se sono uguali, allora non si hanno inviato nuovi messaggi 
-
+            //Se sono uguali, allora non si hanno nuovi messaggi 
+            if (id_messaggio != id_messaggio2) { 
                 // MEGLIO INCLUDERE ANCHE L'ID DEL MESSAGGIO -> se è lo stesso, non fa le cose 
                 id_messaggio2 = id_messaggio; // così dovrebbe farlo una sola volta
 
                 // Varie possibilità di messaggi 
-                // Saluto(Era per testare, ma può essere un easter Egg)
+                // Saluto(Era per testare, ma può essere un easter Egg :3)
                 if (testo.equals("Ciao")) {
                     try {
                         t.sendMessage("sendMessage?chat_id=" + id_chat + "&text=Ciao");
+                        // Così alla scritta "Ciao" risponderà con "Ciao"
                     } catch (IOException ex) {
                         Logger.getLogger(ThreadLetturaMessagg.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-
-                // Impostazione della città
+                // Impostazione della città (text="/citta")
                 if (testo.equals("/citta")) {
                     try {
-
-                        // qui c'è da richiamare la cosa che fa con OpenMap
+                        // Richiamo di OpenMap
                         t.sendMessage("sendMessage?chat_id=" + id_chat + "&text=Dove abiti?");
                         t.sendMessage("sendMessage?chat_id=" + id_chat + "&text=(ex. Longone al Segrino, Como)");
-
                         try {
                             Thread.sleep(5000);
                         } catch (InterruptedException ex) {
@@ -80,8 +76,11 @@ public class ThreadLetturaMessagg extends Thread {
                         Logger.getLogger(ThreadLetturaMessagg.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
+                    
+                    
                     // Qui prende il messaggio, quindi aspettare finchè l'id non è diverso 
                     do {
+                        
                         try {
                             // Cambierà il messaggio
                             t.getUpdates("getUpdates");
@@ -94,6 +93,8 @@ public class ThreadLetturaMessagg extends Thread {
                         }
 
                     } while (id_messaggio == id_messaggio2);
+                    
+                    
                     // Aspetta il messaggio dopo
                     // che dovrebbe generare la query
                     testo = testo.replaceAll(" ", "+"); // Imposta gli spazi come "+" per impostare la query
