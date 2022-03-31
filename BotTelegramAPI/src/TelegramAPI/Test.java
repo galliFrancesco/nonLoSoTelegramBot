@@ -9,13 +9,14 @@ import java.util.stream.Collectors;
 import org.json.*;
 
 /**
- * @brief Gestire le API telegram i guess
+ * @brief Gestire le API telegram
  * @author galli_francesco
  */
 public class Test {
 
-    String URLBase;
+    String URLBase; 
 
+    // Queste variabili vengono lette dal messaggio e verranno poi trasmesse con il get
     String nickutente, testo;
     Long id_chat, id_message;
 
@@ -24,21 +25,30 @@ public class Test {
         // totally not my token, take IT... it's public
     }
 
-    // metodo per leggere i messaggi dell'utente
+    /**
+     * 
+     * @param azione -> https:[telegramBot]/azione
+     * @brief Questo metodo è in grado di leggere i messaggi lasciati nella pagina getUpdates dal Bot
+     */
     public void getUpdates(String azione) throws MalformedURLException, IOException {
 
-        String getUpdatesRequest = URLBase + azione;
-        URL request = new URL(getUpdatesRequest); // fa la richiesta web
+        String getUpdatesRequest = URLBase + azione; // Completa l'inidirizzo URL 
+        URL request = new URL(getUpdatesRequest);
 
+        /**
+         * --------
+         *  LEGGERE I JSON
+         *  --------
+         */      
         String result = new BufferedReader(new InputStreamReader(request.openStream())).lines().collect(Collectors.joining("\n"));
         //System.out.println(result);
         String jsonString = result; //assign your JSON String here
         JSONObject obj = new JSONObject(jsonString);
-        JSONArray arrResult = obj.getJSONArray("result"); // notice that `"posts": [...]`
+        JSONArray arrResult = obj.getJSONArray("result"); 
 
-        // SOUT -> Messaggio /n NoomeUtente
+        // Legge il JSON 
         for (int i = 0; i < arrResult.length(); i++) {
-            //ho il totale
+            //Ho ilmessaggio completo 
             JSONObject totale = arrResult.getJSONObject(i);
 
             //entro nel messaggio
@@ -56,15 +66,20 @@ public class Test {
         }
     }
 
-    //questo è per inviare i messaggi
+
+    /**
+     * 
+     * @param azione -> Sempre la stringa che dice cosa fare con l'URL
+     * @brief Prende in input una stringa e la invia 
+     */
     public void sendMessage(String azione) throws MalformedURLException, IOException {
 
         String getUpdatesRequest = URLBase + azione;
         URL request = new URL(getUpdatesRequest);
 
         String result = new BufferedReader(new InputStreamReader(request.openStream())).lines().collect(Collectors.joining("\n"));
-        String jsonString = result; //assign your JSON String here
-        JSONObject obj = new JSONObject(jsonString);
+        //String jsonString = result; //assign your JSON String here
+       //JSONObject obj = new JSONObject(jsonString);
     }
 
     public String getTesto() {

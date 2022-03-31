@@ -1,6 +1,5 @@
 package botpubblicita;
 
-import TelegramAPI.Test;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import javax.xml.parsers.ParserConfigurationException;
@@ -8,7 +7,7 @@ import org.xml.sax.SAXException;
 
 /**
  *
- * @author galli_francesco
+ * @author galliFrancesco
  */
 public class BotPubblicita {
 

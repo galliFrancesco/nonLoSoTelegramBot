@@ -6,14 +6,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -21,7 +17,7 @@ import org.xml.sax.SAXException;
 
 /**
  *
- * @author galli_francesco
+ * @author galliFrancesco
  * 
  * @brief Passa la query a openMap, che restituisce uno xml 
  *        Questa classe legge e "trasmuta le informazioni"
